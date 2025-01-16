@@ -8,19 +8,18 @@ type AllType = {
     name: string;
     position: number;
     color: string;
-    weight: number
-}
+    weight: number;
+};
 
-type Top = Pick<AllType, "name" | "color">;
-type Bottom = Pick<AllType, "position" | "weight">;
-
-function compare(top: Top, bottom: Bottom): AllType {
+// Використовуємо Generics, щоб забезпечити однаковий тип для обох аргументів
+function compare<T extends Partial<AllType>>(obj1: T, obj2: T): AllType {
     return {
-        name    : top.name,
-        color   : top.color,
-        position: bottom.position,
-        weight  : bottom.weight
+        name: obj1.name ?? "",
+        position: obj2.position ?? 0,
+        color: obj1.color ?? "",
+        weight: obj2.weight ?? 0,
     };
 }
 
 export {};
+
