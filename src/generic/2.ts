@@ -11,8 +11,11 @@ type AllType = {
     weight: number;
 };
 
-// Використовуємо Generics, щоб забезпечити однаковий тип для обох аргументів
-function compare<T extends Partial<AllType>>(obj1: T, obj2: T): AllType {
+// Використовуємо Pick та Generics для визначення, що обидва об'єкти містять підмножину полів AllType
+function compare<T extends keyof AllType>(
+    obj1: Pick<AllType, T>,
+    obj2: Pick<AllType, T>
+): AllType {
     return {
         name: obj1.name ?? "",
         position: obj2.position ?? 0,
@@ -22,4 +25,5 @@ function compare<T extends Partial<AllType>>(obj1: T, obj2: T): AllType {
 }
 
 export {};
+
 
